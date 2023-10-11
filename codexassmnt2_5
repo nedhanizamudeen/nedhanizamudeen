@@ -1,0 +1,21 @@
+#include <iostream>
+#include <ctime>
+#include <string>
+using namespace std;
+
+int main(){
+    string value;
+    string password="xyz*123";
+    while(true){
+        cout<<"Enter the password: ";
+        cin>>value;
+        if(value==password){
+            cout<<"Correct Password!";
+            break;
+        }
+        else{
+            continue;
+        }
+    }
+    
+}
