@@ -1,0 +1,24 @@
+#include<iostream>
+using namespace std;
+inline int addNumbers(int a, int b) {
+    // Implement an inline function that adds two numbers
+    // and returns the result. Write the function definition here.
+    int result=a+b;
+    return result;
+}
+
+int multiplyNumbers(int x, int y, int z = 1) {
+    // Implement a function that multiplies three numbers, with
+    // the third number having a default value of 1.
+    // Write the function definition here.
+    int product=x*y*z;
+    return product;
+}
+
+int main() {
+    int sum = addNumbers(3, 6);
+    cout<<"Sum:"<<sum<<endl;
+    int product = multiplyNumbers(3, 3); // Use default argument
+    cout<<"Product:"<<product;
+    return 0;
+}
