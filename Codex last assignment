@@ -1,0 +1,93 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+char grid[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
+char currentPlayer = 'X';
+
+void displayGrid() {
+    cout << "Tic Tac Toe Game" << endl;
+    cout << "-----------------" << endl;
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            cout << grid[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << "-----------------" << endl;
+}
+
+bool checkWin() {
+    // Check rows and columns
+    for (int i = 0; i < 3; ++i) {
+        if (grid[i][0] == grid[i][1] && grid[i][1] == grid[i][2]) return true;
+        if (grid[0][i] == grid[1][i] && grid[1][i] == grid[2][i]) return true;
+    }
+    // Check diagonals
+    if ((grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2]) ||
+        (grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0])) return true;
+    
+    return false;
+}
+
+bool isGridFull() {
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            if (grid[i][j] != 'X' && grid[i][j] != 'O') {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void changePlayer() {
+    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+}
+
+bool placeMarker(int position) {
+    int row = (position - 1) / 3;
+    int col = (position - 1) % 3;
+
+    if (grid[row][col] == 'X' || grid[row][col] == 'O') {
+        cout << "Invalid move. Try again." << endl;
+        return false;
+    }
+
+    grid[row][col] = currentPlayer;
+    return true;
+}
+
+int main() {
+    int choice;
+    bool win = false;
+
+    while (!win && !isGridFull()) {
+        displayGrid();
+
+        cout << "Player " << currentPlayer << ", enter a number (1-9): ";
+        cin >> choice;
+
+        if (choice < 1 || choice > 9) {
+            cout << "Invalid input. Please choose a number between 1 and 9." << endl;
+            continue;
+        }
+
+        if (!placeMarker(choice)) {
+            continue;
+        }
+
+        win = checkWin();
+        changePlayer();
+    }
+
+    displayGrid();
+
+    if (win) {
+        cout << "Player " << currentPlayer << " wins! Congratulations!" << endl;
+    } else {
+        cout << "It's a draw!" << endl;
+    }
+
+    return 0;
+}
